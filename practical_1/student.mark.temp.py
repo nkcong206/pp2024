@@ -90,7 +90,7 @@ def input_marks(marks, courses, students):
         return marks 
     
     for student in students:
-        mark = float(input(f"Enter marks for {student[1]} in {selected_course[1]}: "))
+        mark = float(input(f"Marks for {student[1]} in {selected_course[1]}: "))
         if selected_course[0] in marks:
             marks[selected_course[0]].append((student[0], mark))
         else:
@@ -136,19 +136,31 @@ def list_students(students):
     for student in students:
         print(f"- {student[1]}")
 
-def show_student_marks(marks):
+def show_student_marks(marks, courses, students):
+    if not courses or not students:
+        print("Courses or students list is empty.")
+        return
+
     print("List of courses:")
-    for i, course_id in enumerate(marks.keys()):
-        print(f"{i + 1}. Course ID: {course_id}")
-    course_id = input("Course ID: ")
+    for course_id in marks.keys():
+        for course in courses:
+            if course[0] == course_id:
+                print(f"ID: {course[0]}. Name: {course[1]}")
+                break
+
+    course_id = input("Enter Course ID: ")
     print("Student marks for the course:")
     if course_id in marks:
         for student_mark in marks[course_id]:
             student_id = student_mark[0]
             mark = student_mark[1]
-            print(f"Student ID: {student_id}, Mark: {mark}")
+            for student in students:
+                if student[0] == student_id:
+                    print(f"Name: {student[1]}, mark: {mark}")
+                    break
     else:
         print("No marks recorded for this course yet.")
+
 
 def main():
     students_info = []
@@ -187,7 +199,7 @@ def main():
         elif choice == "5":
             list_students(students_info)
         elif choice == "6":
-            show_student_marks(marks_info) 
+            show_student_marks(marks_info, courses_info, students_info) 
         elif choice == "7":
             print("Exiting the program...")
             break
