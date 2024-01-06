@@ -140,7 +140,7 @@ def show_student_marks(marks):
     print("List of courses:")
     for i, course_id in enumerate(marks.keys()):
         print(f"{i + 1}. Course ID: {course_id}")
-    course_id = input("Enter course ID: ")
+    course_id = input("Course ID: ")
     print("Student marks for the course:")
     if course_id in marks:
         for student_mark in marks[course_id]:
@@ -178,13 +178,10 @@ def main():
 
         if choice == "1":
             num_students, students_info = input_students(num_students,students_info)
-            print(students_info)
         if choice == "2":
             num_courses, courses_info = input_courses(num_courses,courses_info)
-            print(courses_info)  
         if choice == "3":
             marks_info = input_marks(marks_info,courses_info, students_info)
-            print(marks_info)   
         elif choice == "4":
             list_courses(courses_info)
         elif choice == "5":
